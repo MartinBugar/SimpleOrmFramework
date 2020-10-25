@@ -5,11 +5,12 @@ import com.martyx.simpleormframework.reflection.ObjectReflector;
 import com.martyx.simpleormframework.sql.SqlBuilder;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class SOrmManager {
 
-    public <T> T getEntityById(Long id, Class<T> clazz)  {
+    public <T> T getEntityById(Long id, Class<T> clazz) throws SQLException {
         if (id == null){
             throw new IllegalArgumentException("id nemoze byt prazdne");
         }
@@ -22,6 +23,7 @@ public class SOrmManager {
 
         //nacitame data z databazy
         ResultSet resultSet = loadData(id, clazz);
+        System.out.println(resultSet.getString("ADDRESS"));
 
         // nasetujeme na objekt
 
@@ -36,6 +38,7 @@ public class SOrmManager {
 
          String query = SqlBuilder.buildQuery(id,tableName,idColumnName,tableColumns);
         System.out.println(query);
+
          //ziskat resultset
         DatabaseAccess databaseAccess = new DatabaseAccess();
 
