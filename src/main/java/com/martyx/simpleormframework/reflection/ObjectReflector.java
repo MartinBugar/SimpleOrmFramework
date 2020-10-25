@@ -1,7 +1,9 @@
 package com.martyx.simpleormframework.reflection;
 
+import com.martyx.simpleormframework.anotacie.ID;
 import com.martyx.simpleormframework.anotacie.Stlpec;
 import com.martyx.simpleormframework.anotacie.Tabulka;
+import com.martyx.simpleormframework.exceptions.MissingStlpecAnnotationException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -28,5 +30,21 @@ public class ObjectReflector {
             }
         }
         return stlpce;
+    }
+
+    public static <T> String getIdColumnName(Class<T> clazz) {
+        String idColumnName = null;
+
+        for (Field f : clazz.getDeclaredFields()){ //prechadzam vsetky fieldz doradu
+           if ( f.isAnnotationPresent(ID.class)){ // ziskam field ktory ma na sebe id anotaciu
+                if (f.isAnnotationPresent(Stlpec.class)){ // zistim ci ma na sebe aj stlpec anotaciu
+                    idColumnName = f.getAnnotation(Stlpec.class).value(); // ulozim si meno/value daneho stlpca
+                } else {
+                    throw new MissingStlpecAnnotationException("Pri hladani ID sa nenasiel stlpec anotovany ako stlpec");
+                }
+           }
+        }
+
+        return idColumnName;
     }
 }

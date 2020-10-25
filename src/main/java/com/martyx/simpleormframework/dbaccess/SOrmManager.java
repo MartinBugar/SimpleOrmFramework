@@ -31,7 +31,7 @@ public class SOrmManager {
     private <T> ResultSet loadData(Long id, Class<T> clazz) {
         String tableName = ObjectReflector.getTableName(clazz);
         List<String> tableColumns = ObjectReflector.getColumnNames(clazz);
-        String idColumnName = ObjectReflector.getColumnName(clazz);
+        String idColumnName = ObjectReflector.getIdColumnName(clazz);
 
          String query = SqlBuilder.buildQuery(id,tableName,idColumnName,tableColumns);
 
