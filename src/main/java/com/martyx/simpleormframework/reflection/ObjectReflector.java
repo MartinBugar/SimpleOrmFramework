@@ -3,9 +3,11 @@ package com.martyx.simpleormframework.reflection;
 import com.martyx.simpleormframework.anotacie.ID;
 import com.martyx.simpleormframework.anotacie.Stlpec;
 import com.martyx.simpleormframework.anotacie.Tabulka;
+import com.martyx.simpleormframework.exceptions.MissingIdException;
 import com.martyx.simpleormframework.exceptions.MissingStlpecAnnotationException;
 
 import java.lang.reflect.Field;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,11 @@ public class ObjectReflector {
            }
         }
 
-        return idColumnName;
+        if (idColumnName == null){
+            throw new MissingIdException("Chyba anotacia ID v entite " + clazz.getName());
+            System.out.println("stlpec s ID : " + idColumnName);
+            return idColumnName;
+        }
+
     }
 }
