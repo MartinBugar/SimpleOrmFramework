@@ -21,10 +21,10 @@ public class ObjectReflector {
         List<String> stlpce = new ArrayList<>();
 
         for (Field f : clazz.getDeclaredFields()){
-            if (f.isAnnotationPresent(Stlpec.class)){
-                Stlpec stlpec = f.getAnnotation(Stlpec.class);
-                stlpce.add(stlpec.value());
-                System.out.println("stlpec: "+ stlpec.value());
+            if (f.isAnnotationPresent(Stlpec.class)){ // bude prechadzat doradu vsetky fieldy s anotaciou stlpec
+                Stlpec stlpec = f.getAnnotation(Stlpec.class); //ulozi celu anotaciu stlpec
+                stlpce.add(stlpec.value()); // vyberie z ulozeneho stlpca hodnotu a vlozi ju do listu
+                System.out.println("stlpec: "+ stlpec.value()); // vypiseme si danu hodnotu
             }
         }
         return stlpce;
