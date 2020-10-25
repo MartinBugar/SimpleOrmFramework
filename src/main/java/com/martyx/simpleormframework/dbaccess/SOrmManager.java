@@ -2,6 +2,7 @@ package com.martyx.simpleormframework.dbaccess;
 
 import com.martyx.simpleormframework.exceptions.AnnotationMissingException;
 import com.martyx.simpleormframework.reflection.ObjectReflector;
+import com.martyx.simpleormframework.sql.SqlBuilder;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -34,9 +35,10 @@ public class SOrmManager {
         String idColumnName = ObjectReflector.getIdColumnName(clazz);
 
          String query = SqlBuilder.buildQuery(id,tableName,idColumnName,tableColumns);
-
+        System.out.println(query);
          //ziskat resultset
+        DatabaseAccess databaseAccess = new DatabaseAccess();
 
-        return resultSet;
+        return databaseAccess.executeQuery(query);
     }
 }

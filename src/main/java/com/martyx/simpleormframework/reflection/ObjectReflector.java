@@ -51,9 +51,8 @@ public class ObjectReflector {
 
         if (idColumnName == null){
             throw new MissingIdException("Chyba anotacia ID v entite " + clazz.getName());
-            System.out.println("stlpec s ID : " + idColumnName);
-            return idColumnName;
-        }
-
+         }
+        System.out.println("stlpec s ID : " + idColumnName);
+        return idColumnName;
     }
 }
