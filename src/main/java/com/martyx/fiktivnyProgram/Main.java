@@ -1,5 +1,6 @@
-package com.martyx.fiktivnyProgram.entity;
+package com.martyx.fiktivnyProgram;
 
+import com.martyx.fiktivnyProgram.entity.Osoba;
 import com.martyx.simpleormframework.dbaccess.SOrmManager;
 
 public class Main {
