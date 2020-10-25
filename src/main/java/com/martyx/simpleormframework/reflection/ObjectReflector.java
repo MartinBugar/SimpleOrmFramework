@@ -32,6 +32,8 @@ public class ObjectReflector {
         return stlpce;
     }
 
+
+    //zistim nazov stlpca s id anotaciou
     public static <T> String getIdColumnName(Class<T> clazz) {
         String idColumnName = null;
 
