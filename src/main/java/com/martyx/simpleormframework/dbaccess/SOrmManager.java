@@ -1,6 +1,7 @@
 package com.martyx.simpleormframework.dbaccess;
 
 import com.martyx.simpleormframework.exceptions.AnnotationMissingException;
+import com.martyx.simpleormframework.reflection.ObjectReflector;
 
 public class SOrmManager {
 
@@ -9,7 +10,7 @@ public class SOrmManager {
             throw new IllegalArgumentException("id nemoze byt prazdne");
         }
 
-        if (!isTable(clazz)){
+        if (!ObjectReflector.isTable(clazz)){ // ak tam anotacia neni vyhodi  exception
             throw new AnnotationMissingException("Objekt nema anotaciu tabulka");
         }else {
             System.out.println("is table " + clazz.getName());
