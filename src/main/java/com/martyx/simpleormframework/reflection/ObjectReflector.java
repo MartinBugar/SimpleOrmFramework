@@ -7,6 +7,7 @@ import com.martyx.simpleormframework.exceptions.MissingIdException;
 import com.martyx.simpleormframework.exceptions.MissingStlpecAnnotationException;
 
 import java.lang.reflect.Field;
+import java.sql.ResultSet;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,5 +55,33 @@ public class ObjectReflector {
          }
         System.out.println("stlpec s ID : " + idColumnName);
         return idColumnName;
+    }
+
+    public static <T> T getFilledData(ResultSet resultSet, Class<T> clazz) throws Exception {
+        T object = null;
+
+
+            object = clazz.newInstance();
+            for (Field f : object.getClass().getDeclaredFields()){
+                f.setAccessible(true); // da sa upravovat aj ked je private
+                if (f.isAnnotationPresent(Stlpec.class)){
+                    String typElementu = f.getType().getName();
+                    String nazovStlpca = f.getAnnotation(Stlpec.class).value();
+
+
+                    if (typElementu.equals(String.class.getName())){
+                       f.set(object, resultSet.getString(nazovStlpca));
+                    }else if(typElementu.equals(Long.class.getName())){
+                        f.set(object,resultSet.getLong(nazovStlpca));
+                    }else if (typElementu.equals(Integer.class.getName())){
+                        f.set(object,resultSet.getInt(nazovStlpca));
+                    }
+                }
+            }
+
+            return object;
+
+
+
     }
 }

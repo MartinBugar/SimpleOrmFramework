@@ -10,7 +10,10 @@ import java.util.List;
 
 public class SOrmManager {
 
-    public <T> T getEntityById(Long id, Class<T> clazz) throws SQLException {
+    public <T> T getEntityById(Long id, Class<T> clazz) throws Exception {
+
+        T o = null;
+
         if (id == null){
             throw new IllegalArgumentException("id nemoze byt prazdne");
         }
@@ -27,6 +30,7 @@ public class SOrmManager {
 
         // nasetujeme na objekt
 
+        o = ObjectReflector.getFilledData(resultSet, clazz);
 
         return null;
     }
